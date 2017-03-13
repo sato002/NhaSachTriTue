@@ -1,0 +1,35 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@section category{
+    đăng nhập
+}
+
+<div class="w3_login">
+    @if (TempData["RegisterMessage"] != null)
+    {
+        Response.Write("<script>alert('Đăng ký hoàn tất.')</script>");
+    }
+    <h3>Đăng nhập</h3>
+    <div class="w3_login_module">
+        <div class="module form-module">
+            <div class="toggle">
+            </div>
+            <div class="form">
+                <h2>Mời nhập thông tin</h2>
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @role = "form" }))
+                {
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Username", required = " ", type = "text" })
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", required = " ", type = "password" })
+                    <input type="submit" value="Đăng nhập">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- //login -->

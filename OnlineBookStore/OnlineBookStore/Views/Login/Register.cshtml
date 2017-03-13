@@ -1,0 +1,32 @@
+﻿@model Model.EF.User
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+
+@section category{
+    đăng ký
+}
+
+<div class="w3_login">
+    <h3>Đăng ký</h3>
+    <div class="w3_login_module">
+        <div class="module form-module">
+            <div class="toggle">
+            </div>
+            <div class="form">
+                <h2>Mời nhập thông tin</h2>
+                @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @role = "form" }))
+                {
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Username", type = "text" })
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email Address", type = "email" })
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "Phone Number", type = "text" })
+                    <input type="submit" value="Đăng ký">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //login -->

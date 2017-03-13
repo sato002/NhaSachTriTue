@@ -1,0 +1,224 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+    var newProducts = (List<Model.EF.Product>)ViewBag.newProducts;
+    var promotionProducts = (List<Model.EF.Product>)ViewBag.promotionProducts;
+    var hotProducts = (List<Model.EF.Product>)ViewBag.hotProducts;
+    var buyProducts = (List<Model.EF.Product>)ViewBag.buyProducts;
+}
+
+@section header{
+    <style type="text/css">
+    .w3l_banner_nav_right_banner4 {
+        background: url(/Assets/Images/banner.jpg) no-repeat 0px 0px !important;
+    }
+    </style>    
+}
+@if (TempData["LoginMessage"] != null)
+{
+    Response.Write("<script>alert('Đăng nhập thành công, chào mừng bạn tới Store.')</script>");
+}
+<div class="w3l_banner_nav_right_banner4">
+</div>
+<div class="w3ls_w3l_banner_nav_right_grid w3ls_w3l_banner_nav_right_grid_sub">
+    <h3>Sách đề cử</h3>
+    <div class="w3ls_w3l_banner_nav_right_grid1">
+        <h6>Sách mới nhất</h6>
+        @foreach (var item in newProducts)
+        {
+            <div class="col-md-3 w3ls_w3l_banner_left">
+                <div class="hover14 column">
+                    <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                        <div class="agile_top_brand_left_grid_pos">
+                            <img src="/Assets/Client/images/offer.png" class="img-responsive" />
+                        </div>
+                        <div class="agile_top_brand_left_grid1">
+                            <figure>
+                                <div class="snipcart-item block">
+                                    <div class="snipcart-thumb">
+                                        <a href="/chi-tiet/@item.MetaTitle-@item.ProductID"><img src="@item.Image" alt="" class="img-responsive" /></a>
+                                        @if (@item.ProductName.Length > 26)
+                                        {
+                                            <a title="@item.ProductName" href=""><p>@item.ProductName.Substring(0, 26).Insert(26, "...")</p></a>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.ProductName</p>
+                                        }
+                                        @if (item.PromotionPrice != 0)
+                                        {
+                                            <h4>@item.PromotionPrice.Value.ToString("0,0")<span>@item.Price.Value.ToString("0,0")</span></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@item.Price.Value.ToString("0,0")</h4>
+                                        }
+                                        
+                                    </div>
+                                    <div class="snipcart-details">
+                                        @using (Html.BeginForm("AddItem", "Cart", routeValues: new { @productID = item.ProductID},method: FormMethod.Post))
+                                        {
+                                            <input type="submit" name="submit" value="Thêm vào giỏ" class="button" />
+                                        }
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="w3ls_w3l_banner_nav_right_grid1">
+        <h6>Sách rẻ nhất</h6>
+        @foreach (var item in promotionProducts)
+        {
+            <div class="col-md-3 w3ls_w3l_banner_left">
+                <div class="hover14 column">
+                    <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                        <div class="agile_top_brand_left_grid_pos">
+                            <img src="/Assets/Client/images/offer.png" class="img-responsive" />
+                        </div>
+                        <div class="agile_top_brand_left_grid1">
+                            <figure>
+                                <div class="snipcart-item block">
+                                    <div class="snipcart-thumb">
+                                        <a href="/chi-tiet/@item.MetaTitle-@item.ProductID"><img src="@item.Image" alt="" class="img-responsive" /></a>
+                                        @if (@item.ProductName.Length > 26)
+                                        {
+                                            <a title="@item.ProductName" href=""><p>@item.ProductName.Substring(0, 26)Insert(26,"...")</p></a>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.ProductName</p>
+                                        }
+                                        @if (item.PromotionPrice != 0)
+                                        {
+                                            <h4>@item.PromotionPrice.Value.ToString("0,0")<span>@item.Price.Value.ToString("0,0")</span></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@item.Price.Value.ToString("0,0")</h4>
+                                        }
+                                    </div>
+                                    <div class="snipcart-details">
+                                        @using (Html.BeginForm("AddItem", "Cart", routeValues: new { @productID = item.ProductID }, method: FormMethod.Post))
+                                        {
+                                            <input type="submit" name="submit" value="Thêm vào giỏ" class="button" />
+                                        }
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="w3ls_w3l_banner_nav_right_grid1">
+        <h6>Sách hot</h6>
+        @foreach (var item in hotProducts)
+        {
+            <div class="col-md-3 w3ls_w3l_banner_left">
+                <div class="hover14 column">
+                    <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                        <div class="agile_top_brand_left_grid_pos">
+                            <img src="/Assets/Client/images/offer.png" class="img-responsive" />
+                        </div>
+                        <div class="agile_top_brand_left_grid1">
+                            <figure>
+                                <div class="snipcart-item block">
+                                    <div class="snipcart-thumb">
+                                        <a href="/chi-tiet/@item.MetaTitle-@item.ProductID"><img src="@item.Image" alt="" class="img-responsive" /></a>
+                                        @if (@item.ProductName.Length > 26)
+                                        {
+                                            <a title="@item.ProductName" href=""><p>@item.ProductName.Substring(0, 26).Insert(26,"...")</p></a>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.ProductName</p>
+                                        }
+                                        @if (item.PromotionPrice != 0)
+                                        {
+                                            <h4>@item.PromotionPrice.Value.ToString("0,0")<span>@item.Price.Value.ToString("0,0")</span></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@item.Price.Value.ToString("0,0")</h4>
+                                        }
+                                    </div>
+                                    <div class="snipcart-details">
+                                        @using (Html.BeginForm("AddItem", "Cart", routeValues: new { @productID = item.ProductID }, method: FormMethod.Post))
+                                        {
+                                            <input type="submit" name="submit" value="Thêm vào giỏ" class="button" />
+                                        }
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="w3ls_w3l_banner_nav_right_grid1">
+        <h6>Sách mua nhiều</h6>
+        @foreach (var item in buyProducts)
+        {
+            <div class="col-md-3 w3ls_w3l_banner_left">
+                <div class="hover14 column">
+                    <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                        <div class="agile_top_brand_left_grid_pos">
+                            <img src="/Assets/Client/images/offer.png" class="img-responsive" />
+                        </div>
+                        <div class="agile_top_brand_left_grid1">
+                            <figure>
+                                <div class="snipcart-item block">
+                                    <div class="snipcart-thumb">
+                                        <a href="/chi-tiet/@item.MetaTitle-@item.ProductID"><img src="@item.Image" alt="" class="img-responsive" /></a>
+                                        @if (@item.ProductName.Length > 26)
+                                        {
+                                            <a title="@item.ProductName" href=""><p>@item.ProductName.Substring(0, 26).Insert(26, "...")</p></a>
+                                        }
+                                        else
+                                        {
+                                            <p>@item.ProductName</p>
+                                        }
+                                        @if (item.PromotionPrice != 0)
+                                        {
+                                            <h4>@item.PromotionPrice.Value.ToString("0,0")<span>@item.Price.Value.ToString("0,0")</span></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@item.Price.Value.ToString("0,0")</h4>
+                                        }
+                                    </div>
+                                    <div class="snipcart-details">
+                                        @using (Html.BeginForm("AddItem", "Cart", routeValues: new { @productID = item.ProductID }, method: FormMethod.Post))
+                                        {
+                                            <input type="submit" name="submit" value="Thêm vào giỏ" class="button" />
+                                        }
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clearfix"> </div>
+    </div>
+
+</div>
+
+
+
+

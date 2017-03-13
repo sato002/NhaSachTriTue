@@ -1,0 +1,66 @@
+﻿@model List<OnlineBookStore.Models.CartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@section category{
+    giỏ hàng    
+}
+
+    @if (Model.Count > 0)
+    {
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <td>Mã sp</td>
+                        <td>Tên sp</td>
+                        <td>Ảnh</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành tiền</td>
+                        <td>#</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        decimal? finalPrice = 0;
+                        if (item.product.PromotionPrice != 0)
+                        {
+                            finalPrice = item.product.PromotionPrice;
+                        }
+                        else
+                        {
+                            finalPrice = item.product.Price;
+                        }
+                        <tr>
+                            <td>@item.product.ProductID</td>
+                            <td>@item.product.ProductName</td>
+                            <td><img src="@item.product.Image" width="50" height="80"></td>
+                            <td><input type="text" class="txtQuanlity" data-id="@item.product.ProductID" value="@item.quanlity"/></td>
+                            <td>@finalPrice.Value.ToString("N0")</td>
+                            <td>@((item.quanlity * finalPrice).Value.ToString("N0")) </td>
+                            <td><button data-id="@item.product.ProductID" class="btn btn-danger btn-circle btn-delete">
+                                    <i class="fa fa-times"></i>
+                                </button></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <label >Chưa có sản phẩm nào trong giỏ.</label>
+        </div>
+    }
+    <div class="clearfix"></div>
+    <button class="btn btnContinue" >Tiếp tục mua hàng</button>
+    <button class="btn" id="btnUpdate">Cập nhật</button>
+    <button class="btn" id="btnDeleteAll">Xóa giỏ hàng</button>
+    <button class="btn" id="btnPayment">Thanh toán</button>
+
+   
+
