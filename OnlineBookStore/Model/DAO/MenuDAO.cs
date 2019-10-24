@@ -112,4 +112,45 @@ namespace Model.DAO
         // need implement method Approve()
     }
     
+    class MySqlProvider
+    {
+        public IList ExecuteQuery();
+        public int ExecuteNonQuery();
+        public object ExecuteScalar();
+    }
+    
+    class DLCustomer
+    {
+        private MySqlProvider _mysqlProvider = new MySqlProvider();
+    }
+    
+    interface IDBProvider
+    {
+        IList ExecuteQuery();
+        int ExecuteNonQuery();
+        object ExecuteScalar();
+    }
+    
+    class MySqlProvider : IDBProvider
+    {
+        public IList ExecuteQuery();
+        public int ExecuteNonQuery();
+        public object ExecuteScalar();
+    }
+    
+    class NoSqlProvider : IDBProvider
+    {
+        public IList ExecuteQuery();
+        public int ExecuteNonQuery();
+        public object ExecuteScalar();
+    }
+    
+    class DLCustomer
+    {
+        private IDBProvider _dbProvider;
+        public DLCustomer(IDBProvider dbProvider) 
+        {
+            _dbProvider = dbProvider;
+        }
+    }
 }
