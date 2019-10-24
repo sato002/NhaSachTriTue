@@ -17,26 +17,21 @@ namespace Model.DAO
 
         public List<Menu> GetListByID(int typeID)
         {
-            var cities = GetCities();
-            var districts = GetDistricts();
-            
-            SaveProfileAddress(cities[0], districts[0]);
-            
-            
-            var cities = GetCities();
-            var districts = GetDistricts();
-            var hotCity = cities[0];
-            var hotDistrict = districts[0];
-            
-            SaveProfileAddress(hotCity, hotDistrict);
-            
-            
-            
-            
-            
-            
-            
             return db.Menus.Where(x => x.MenuTypeID == typeID).ToList();
         }
+    }
+    
+    public class SupportCenter
+    {
+        public void SendMailToCustomers()
+        {
+            GetCustomers();
+            ProcessData();
+            SendEmail();
+        }
+        
+        public List<Client> GetCustomers();
+        public void ProcessData();
+        public void SendEmail();
     }
 }
