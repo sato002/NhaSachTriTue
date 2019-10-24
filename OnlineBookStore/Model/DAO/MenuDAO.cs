@@ -35,28 +35,81 @@ namespace Model.DAO
         public void SendEmail();
     }
     
-    public class ReportGeneration
+    class ReportGeneration
     {
-        public string ReportType { get; set; }
-
-        public void GenerateReport(Employee em)
+        public void GenerateReport(string reportType)
         {
-            if (ReportType == "CRS")
-            {
-                 // 300 line code here
-            }
-            if (ReportType == "PDF")
+            if (reportType == "PDF")
             {
                 // 500 line code here.
             }
-            if (ReportType == "Excel")
+            if (reportType == "Excel")
             {
                 // 200 line code here
             }
-            if (ReportType == "Word")
+            if (reportType == "Word")
             {
                 // 700 line code here
             }
          }
      }
+    
+    interface IReportHelper
+    {
+        void GenerateReport();
+    }
+    
+    class PDFReportHelper : IReportHelper
+    {
+        public void GenerateReport()
+        {
+            // Logic generate PDF report
+        }
+    }
+    class ExcelReportHelper : IReportHelper
+    {
+        public void GenerateReport()
+        {
+            // Logic generate Excel report
+        }
+    }
+    
+    class ReportManager
+    {
+        private readonly IReportHelper ReportHelper;
+
+        public ReportManager(IReportHelper reportHelper)
+        {
+            ReportHelper = reportHelper;
+        }
+
+        public void ExportReport()
+        {
+            ReportHelper.GenerateReport();
+        }
+    }
+    
+    interface IManager 
+    {
+        void Approve();
+    }
+    
+    class Employee
+    {
+        void Working() 
+        {
+            // Working logic code
+        }
+    }
+    
+    class Developer : Employee
+    {
+        
+    }
+    
+    class Manager : Employee, IManager
+    {
+        // need implement method Approve()
+    }
+    
 }
