@@ -34,4 +34,29 @@ namespace Model.DAO
         public void ProcessData();
         public void SendEmail();
     }
+    
+    public class ReportGeneration
+    {
+        public string ReportType { get; set; }
+
+        public void GenerateReport(Employee em)
+        {
+            if (ReportType == "CRS")
+            {
+                 // 300 line code here
+            }
+            if (ReportType == "PDF")
+            {
+                // 500 line code here.
+            }
+            if (ReportType == "Excel")
+            {
+                // 200 line code here
+            }
+            if (ReportType == "Word")
+            {
+                // 700 line code here
+            }
+         }
+     }
 }
